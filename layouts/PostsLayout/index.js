@@ -50,7 +50,7 @@ export default function PostsLayout(props) {
   return (
     <>
       <Head>
-        <title>BlogbooK</title>
+        <title>Blogbook</title>
       </Head>
       <CssBaseline/>
       <Header/>

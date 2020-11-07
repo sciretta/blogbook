@@ -1,3 +1,4 @@
+import { useEffect,useState } from 'react'
 import { useRouter } from 'next/router'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -8,6 +9,8 @@ import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+
+import { handleGroupPosts } from '../../handles/posts'
 
 
 const useStyles = makeStyles((theme) =>({
@@ -22,8 +25,14 @@ const useStyles = makeStyles((theme) =>({
   }
 }))
 
-export default function PostsGroup({amount}) {
+export default function PostsGroup({search}) {
 	const classes = useStyles()
+  
+  const [posts,setPosts] = useState([{content:'Nothing'}])//eliminar
+  useEffect(()=>{
+    handleGroupPosts(search,setPosts)
+  },[])
+
   return (
     <Grid 
       container 
@@ -32,15 +41,20 @@ export default function PostsGroup({amount}) {
       alignContent="center"
       direction="column"
     >
-      {[...new Array(amount)].map((i,index)=>(
-        <PostCard key={index} path={"/username/12345"}/>
-      ))}
+      {posts.title?posts.map(post=>(
+        <PostCard 
+          key={post.title} 
+          path={`${post.author}/${post.id}`}
+          author={post.author}
+          title={post.title}
+        />
+      )):null}
     </Grid>
   )
 }
 
 
-function PostCard({path}) {
+function PostCard({path,title,author}) {
   const classes = useStyles()
   const {replace} = useRouter()
 
@@ -57,7 +71,7 @@ function PostCard({path}) {
       >
         <CardContent>
           <Typography gutterBottom variant="h2" component="h2">
-            Titulo del post que va a ser leido o no.
+            {title}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -68,7 +82,7 @@ function PostCard({path}) {
           alignItems="center"
         >
           <Typography variant="h3">
-            Autor y likes
+            {author} y likes
           </Typography>
           <Button>
             <Typography variant="h3">

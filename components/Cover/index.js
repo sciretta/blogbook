@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid'
 import Avatar from '@material-ui/core/Avatar'
 import Paper from '@material-ui/core/Paper'
 
+import { useStore } from '../../Store'
+
 
 const useStyles = makeStyles((theme) =>({
   container:{
@@ -37,12 +39,7 @@ const useStyles = makeStyles((theme) =>({
 
 
 export default function Cover(props) {
-  const [user] = React.useState({
-    username:'Leonardo',
-    country:'Venezuela',
-    joined:'10/29/2020',
-    description:'Some short description from the user for the visitors and somo like that.'
-  })
+  const {user} = useStore()
   const classes = useStyles()
   const {replace} = useRouter()
 
@@ -73,7 +70,7 @@ export default function Cover(props) {
               xs={12} sm={5} md={7} lg={8} 
             >
               <Avatar className={classes.avatar}>
-                {user.username[0]}
+                {user.name[0]}
               </Avatar>
             </Grid>
             <Grid item>
@@ -103,13 +100,13 @@ export default function Cover(props) {
             </Grid>
             <Grid item>
               <Typography variant="h3">
-                from {user.country},
+                from {user.country || 'No country.'},
               </Typography>
               <Typography variant="h3">
-                joined {user.joined}
+                joined {user.joined || 'No date.'}
               </Typography>
               <Typography variant="h4">
-                {user.description}
+                {user.description || 'No description.'}
               </Typography>
             </Grid>
           </Grid>

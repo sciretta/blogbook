@@ -21,7 +21,7 @@ export const lightTheme = createMuiTheme({
     h1: {
       fontFamily: "system-ui",
       fontWeight:800,
-      fontSize:30,
+      fontSize:24,
       color:grey[800]
     },
     h2: {

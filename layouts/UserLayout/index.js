@@ -10,6 +10,7 @@ import Drawer from '@material-ui/core/Drawer'
 
 import Header from '../../components/Header'
 import Cover from '../../components/Cover'
+import { useStore } from '../../Store'
 
 const useStyles = makeStyles((theme) =>({
   toolbar:{
@@ -22,14 +23,14 @@ const useStyles = makeStyles((theme) =>({
 
 export default function UserLayout(props) {
   const classes = useStyles()
-  const username = "Leonardo"//useername de la context api
+  const {user} = useStore()
   return (
     <>
       <Head>
-        <title>{username?username:'Loading...'}</title>
+        <title>{user?user.name:'Loading...'}</title>
       </Head>
-      <CssBaseline/>
-      <Header/>
+      <Header/> 
+      <CssBaseline/> 
       <Toolbar className={classes.toolbar}/>
       <Container maxWidth="xl" className={classes.container}>
         <Cover/>

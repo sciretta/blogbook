@@ -57,4 +57,37 @@ export const postLoad = async (body,res) => {
   }
 }
 
-// export const postVisitor
+//load a group of posts
+export const postGroup = async (body,res) => {//falta buscar los tags del usuario y hacer un algoritmo de busqueda
+  try{
+    const search = body
+    
+    if(search==='ALL')
+      return res
+        .status(400)
+        .json({ error: "Not available yet" })
+    //finding post
+    let posts = await Post.find({userId:search})
+    if (!posts)
+      return res
+        .status(400)
+        .json({ error: "This user doesn't have posts yet." })
+
+    const author = await User.findById(search)
+    if(!author)
+      return res
+        .status(400)
+        .json({ error: "This user doesn't exist." })
+
+    posts = posts.map(post=>({
+      author:author.username,
+      id:post._id,
+      tags:post.tags,
+      title:post.title,
+      content:post.content
+    }))
+    return res.json(posts)
+  }catch(err){
+    return res.status(500).json({error:err.message})
+  }
+}

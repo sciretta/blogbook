@@ -8,14 +8,13 @@ import PostsGroup from '../components/PostsGroup'
 
 export default function Home() {
   const dispatch = useDispatch()
-  
 	useEffect(() => {
     handleCheckLoggedIn(dispatch)
   }, [])
 
   return (
     <PostsLayout >
-      <PostsGroup amount={30}/>
+      <PostsGroup search={'ALL'}/>
     </PostsLayout>
   )
 }

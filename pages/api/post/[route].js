@@ -1,6 +1,7 @@
 import { 
   postNew,
-  postLoad
+  postLoad,
+  postGroup
 } from '../../../server/controllers/Posts'
 
 import dbConnect from '../../../server/db.connect'
@@ -20,6 +21,12 @@ export default async (req, res) => {
     case 'load':
       if(method==='POST')
         return postLoad(body,res)
+      else
+        res.status(400).json({success:false})
+      break
+    case 'group':
+      if(method==='POST')
+        return postGroup(body,res)
       else
         res.status(400).json({success:false})
       break

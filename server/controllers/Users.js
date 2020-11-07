@@ -41,7 +41,7 @@ export const userRegister = async (body,res) => {
       password: passwordHash
     })
     const savedUser = await newUser.save()
-    return res.json(savedUser)
+    return res.json(savedUser)//se envia la password
   }catch(err){
   	return res.status(500).json({error:err.message})
   }
