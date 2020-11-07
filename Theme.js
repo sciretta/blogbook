@@ -19,7 +19,7 @@ export const lightTheme = createMuiTheme({
   },
   typography: {
     h1: {
-      fontFamily: "UnifrakturCook",
+      fontFamily: "system-ui",
       fontWeight:800,
       fontSize:30,
       color:grey[800]

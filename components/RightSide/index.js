@@ -14,8 +14,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import PersonIcon from '@material-ui/icons/Person'
 import LabelIcon from '@material-ui/icons/Label'
 
-import WorldMap from 'react-world-map'
-
 const topPosts = [
 {title:'How to start a js project?',likes:3},{title:'How to start a js project?',likes:3},
 {title:'How to start a js project?',likes:3},{title:'How to start a js project?',likes:3},
@@ -57,7 +55,7 @@ export default function RightSide(props) {
         </List>
       </Paper>
       <footer className={classes.footer}>
-        Leonardo • BlogbooK © 2020
+        Leonardo • Blogbook © 2020
       </footer>
     </>
   )

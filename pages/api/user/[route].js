@@ -1,7 +1,7 @@
 import { 
 	userRegister,
   userLogin,
-  userDelete,
+  //userDelete,
   userValidToken,
   userData
 } from '../../../server/controllers/Users'
@@ -26,12 +26,12 @@ export default async (req, res) => {
   	  else
   	  	res.status(400).json({success:false})
   	  break
-  	case 'delete':
-  	  if(method==='DELETE')
-  	  	return userDelete(req,res)
-  	  else
-  	  	res.status(400).json({success:false})
-  	  break
+  	// case 'delete':
+  	//   if(method==='DELETE')
+  	//   	return userDelete(req,res)
+  	//   else
+  	//   	res.status(400).json({success:false})
+  	//   break
     case 'tokenIsValid':
       if(method==='POST')
         return userValidToken(req,res)

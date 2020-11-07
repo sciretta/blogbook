@@ -19,7 +19,28 @@ export const handleCreatePost = (replace,userId) => {
     if(!res.error){
     	replace(`${res.username}/${res.id}`)
     }else{
-    	console.log(res)//eliminar
+    	console.log({error:res.error})//eliminar
+    }
+  })
+}
+
+//loading post
+export const handleLoadPost = (postId,setTitle,setContent) => {
+
+  fetch(`http://localhost:3000/api/post/load`, {
+    method: 'POST',
+    body:JSON.stringify(postId),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res => res.json())
+  .then(res => {
+    if(!res.error){
+      setTitle(res.post.title)
+      setContent(res.post.content)
+    }else{
+      console.log({error:res.error})//eliminar
     }
   })
 }

@@ -1,5 +1,6 @@
 import { 
-  postNew
+  postNew,
+  postLoad
 } from '../../../server/controllers/Posts'
 
 import dbConnect from '../../../server/db.connect'
@@ -16,6 +17,12 @@ export default async (req, res) => {
   	  else
   	  	res.status(400).json({success:false})
   	  break
+    case 'load':
+      if(method==='POST')
+        return postLoad(body,res)
+      else
+        res.status(400).json({success:false})
+      break
     // case 'all':
     //   if(method==='POST')
     //     return userRegister(body,res)

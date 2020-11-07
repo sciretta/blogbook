@@ -70,7 +70,7 @@ export default function Header(props) {
             onClick={()=>handleRedirect("/")}
           >
             <Typography variant="h1">
-              BlogbooK
+              Blogbook
             </Typography>
           </Button>
           <div className={classes.searchContainer}>

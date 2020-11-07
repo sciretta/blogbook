@@ -3,11 +3,12 @@ import User from '../models/User'
 import Post from '../models/Post'
 import auth from '../middlewares/auth'
 
-
+//create a new post
 export const postNew = async (body,res) => {
   try{
     const { title, content, userId, tags } = body
 
+    //validatons
     if (!title || !content || !userId || !tags)
       return res
         .status(400)
@@ -19,11 +20,12 @@ export const postNew = async (body,res) => {
         .status(400)
         .json({ error: "A post with this title already exists." })
 
-    //create and saving new user
+    //finding user
     const author = await User.findById(userId)
     if (!author) 
       return res.json({error:'User not found.'})
 
+    //saving post
     const newPost = new Post({
       title,
       content,
@@ -39,48 +41,20 @@ export const postNew = async (body,res) => {
   }
 }
 
-// //create a new user
-// export const postsUser = async (body,res) => {
-// 	try{
-// 		const { username, name, country, password, passwordCheck } = body
-//     // validate
-//     if (!username || !name || !password || !passwordCheck)
-//       return res
-//         .status(400)
-//         .json({ error: "Not all required fields have been entered." })
+//load one post
+export const postLoad = async (body,res) => {
+  try{
+    //finding post
+    const existingPost = await Post.findById(body)
+    if (!existingPost)
+      return res
+        .status(400)
+        .json({ error: "This post doesn't exist." })
 
-//   	if (password.length < 5)
-//       return res
-//         .status(400)
-//         .json({ error: "The password needs to be at least 5 characters long." })
-
-//     if (password !== passwordCheck)
-//       return res
-//         .status(400)
-//         .json({ error: "Enter the same password twice for verification." })
-
-//     const existingUser = await User.findOne({ username })
-//     if (existingUser)
-//       return res
-//         .status(400)
-//         .json({ error: "An account with this username already exists." })
-    
-//     //encrypt the password
-//     const salt = await bcrypt.genSalt()
-//     const passwordHash = await bcrypt.hash(password,salt)
-
-//     //create and saving new user
-//     const newUser = new User({
-//       username,
-//       name,
-//       country,
-//       password: passwordHash
-//     })
-//     const savedUser = await newUser.save()
-//     return res.json(savedUser)
-//   }catch(err){
-//   	return res.status(500).json({error:err.message})
-//   }
-// }
+    return res.json({post:existingPost})
+  }catch(err){
+    return res.status(500).json({error:err.message})
+  }
+}
 
 // export const postVisitor

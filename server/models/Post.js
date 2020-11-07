@@ -7,12 +7,12 @@ const PostSchema = new Schema({
 		type:String,
 		required:[true,'Title required.'],
 		unique:true,
-		maxlength:[25,'Title must be less than 25 characters.']
+		maxlength:[100,'Title must be less than 100 characters.']
 	},
 	content:{
 		type:String,
 		required:[true,'Content required.'],
-		maxlength:[4000,'Content must be less than 4000 characters.']
+		maxlength:[7000,'Content must be less than 7000 characters.']
 	},
 	published:{
 		type:Date,

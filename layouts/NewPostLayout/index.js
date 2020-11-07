@@ -20,7 +20,7 @@ export default function NewPostLayout(props) {
   return (
     <>
       <Head>
-        <title>New post</title>
+        <title>{props.title}</title>
       </Head>
       <CssBaseline/>
       <Header/>

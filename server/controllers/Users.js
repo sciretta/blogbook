@@ -82,20 +82,20 @@ export const userLogin = async (body,res) => {
   }
 }
 
-//delete user
-export const userDelete = async (req,res) => {//modificar este endpoint
-  try {
-    await auth(req,res)
-      .then(async () => {
-        const deletedUser = await User.findByIdAndDelete(req.user)
-        if(!deletedUser)
-          return res.status(400).json({error:'User not found.'})
-        return res.json(deletedUser)
-      })
-  }catch(err){
-    return res.status(500).json({error:err.message})
-  }
-}
+// //delete user
+// export const userDelete = async (req,res) => {//modificar este endpoint
+//   try {
+//     await auth(req,res)
+//       .then(async () => {
+//         const deletedUser = await User.findByIdAndDelete(req.user)
+//         if(!deletedUser)
+//           return res.status(400).json({error:'User not found.'})
+//         return res.json(deletedUser)
+//       })
+//   }catch(err){
+//     return res.status(500).json({error:err.message})
+//   }
+// }
 
 //check token
 export const userValidToken = async (req, res) => {
@@ -126,7 +126,7 @@ export const userData = async (req,res) => {//modificar este endpoint
         const user = await User.findById(req.user)
         
         if(!user)
-          return res.json({msg:'User not found.'})
+          return res.json({error:'User not found.'})
 
         return res.json({
           user: {

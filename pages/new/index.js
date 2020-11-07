@@ -3,7 +3,7 @@ import NewPost from '../../components/Post/NewPost'
 
 export default function New() {
   return (
-    <NewPostLayout>
+    <NewPostLayout title={New post.}>
       <NewPost/>
     </NewPostLayout>
   )
