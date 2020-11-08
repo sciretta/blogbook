@@ -65,7 +65,7 @@ export const postGroup = async (body,res) => {//falta buscar los tags del usuari
     if(search==='ALL')
       return res
         .status(400)
-        .json({ error: "Not available yet" })
+        .json({ error: "Not available yet." })
     //finding post
     let posts = await Post.find({userId:search})
     if (!posts)

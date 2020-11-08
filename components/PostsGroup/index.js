@@ -28,11 +28,11 @@ const useStyles = makeStyles((theme) =>({
 export default function PostsGroup({search}) {
 	const classes = useStyles()
   
-  const [posts,setPosts] = useState([{content:'Nothing'}])//eliminar
+  const [posts,setPosts] = useState([])
   useEffect(()=>{
     handleGroupPosts(search,setPosts)
   },[])
-
+  
   return (
     <Grid 
       container 
