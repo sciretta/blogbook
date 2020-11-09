@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import User from '../models/User'
+import Post from '../models/Post'
 import auth from '../middlewares/auth'
 
 //create a new user
@@ -134,11 +135,54 @@ export const userData = async (req,res) => {//modificar este endpoint
             username: user.username,
             name: user.name,
             country: user.country,
+            likes:user.likes,
             
           }
         })
       })
   }catch (err) {
     res.status(500).json({ error: err.message })
+  }
+}
+
+//liking a post
+export const userLike = async (req,res) => {
+  try{
+    await auth(req,res)
+      .then(async () => {
+        const { postId,userId } = req.body
+        if(!userId)
+          return res
+            .status(400)
+            .json({ error: "Only users can like posts." })
+        
+        const user = await User.findById(userId)
+        if(!user)
+          return res
+            .status(400)
+            .json({ error: "This user is invalid and can't like the post." })
+
+        const { likes } = user
+
+        const hasLiked = await likes.some((likes)=>likes===postId)
+        if(hasLiked)
+          return res
+            .status(400)
+            .json({ error: "This user have liked this post." })
+
+        const userUpdated = await User
+          .findOneAndUpdate({_id:userId},{
+            likes:[...likes,postId]
+          })  
+
+        const postUpdated = await Post
+          .findOneAndUpdate({_id:postId},{
+            likes:likes.length+1
+          })
+        
+        return res.json(postUpdated)
+      })
+  }catch(err){
+    return res.status(500).json({error:err.message})
   }
 }

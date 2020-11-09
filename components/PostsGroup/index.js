@@ -31,7 +31,7 @@ export default function PostsGroup({search}) {
   const [posts,setPosts] = useState([])
   useEffect(()=>{
     handleGroupPosts(search,setPosts)
-  },[])
+  },[search])
   
   return (
     <Grid 
@@ -41,12 +41,13 @@ export default function PostsGroup({search}) {
       alignContent="center"
       direction="column"
     >
-      {posts.title?posts.map(post=>(
+      {posts?posts.map(post=>(
         <PostCard 
           key={post.title} 
           path={`${post.author}/${post.id}`}
           author={post.author}
           title={post.title}
+          likes={post.likes}
         />
       )):null}
     </Grid>
@@ -54,14 +55,13 @@ export default function PostsGroup({search}) {
 }
 
 
-function PostCard({path,title,author}) {
+function PostCard({path,title,author,likes}) {
   const classes = useStyles()
   const {replace} = useRouter()
 
   const handleRedirect = path =>{
     replace(path)
   }
-
 
   return (
     <Card className={classes.card}>
@@ -82,7 +82,7 @@ function PostCard({path,title,author}) {
           alignItems="center"
         >
           <Typography variant="h3">
-            {author} y likes
+            author:{author}, likes:{likes}
           </Typography>
           <Button>
             <Typography variant="h3">

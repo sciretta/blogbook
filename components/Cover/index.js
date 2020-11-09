@@ -70,7 +70,7 @@ export default function Cover(props) {
               xs={12} sm={5} md={7} lg={8} 
             >
               <Avatar className={classes.avatar}>
-                {user.name[0]}
+                {user.name?user.name[0]:'Blogbook'}
               </Avatar>
             </Grid>
             <Grid item>
@@ -95,7 +95,7 @@ export default function Cover(props) {
           >
             <Grid item>
               <Typography variant="h2">
-                {user.username}
+                {user.username||'Username'}
               </Typography>
             </Grid>
             <Grid item>

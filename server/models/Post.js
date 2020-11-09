@@ -16,12 +16,17 @@ const PostSchema = new Schema({
 	},
 	published:{
 		type:Date,
-		value:new Date()//NO FUNCIONA LA FECHA
+		default:new Date(),//NO FUNCIONA LA FECHA
+		required:true
 	},
 	tags:[{//debe de ser requerido al menos una
 		type:String,
 		trim:true
 	}],
+	likes:{
+		type:Number,
+		default:0
+	},
 	userId:{
 		type:String,
 		trim:true

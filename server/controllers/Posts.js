@@ -4,7 +4,7 @@ import Post from '../models/Post'
 import auth from '../middlewares/auth'
 
 //create a new post
-export const postNew = async (body,res) => {
+export const postNew = async (body,res) => {//falta agregar post id al autor
   try{
     const { title, content, userId, tags } = body
 
@@ -32,6 +32,7 @@ export const postNew = async (body,res) => {
       tags,
       userId
     })
+
     const savedPost = await newPost.save()
     return res.json({
       id:savedPost._id,
@@ -67,7 +68,7 @@ export const postGroup = async (body,res) => {//falta buscar los tags del usuari
         .status(400)
         .json({ error: "Not available yet." })
     //finding post
-    let posts = await Post.find({userId:search})
+    let posts = await Post.find({userId:search})//ERROR
     if (!posts)
       return res
         .status(400)
@@ -84,7 +85,9 @@ export const postGroup = async (body,res) => {//falta buscar los tags del usuari
       id:post._id,
       tags:post.tags,
       title:post.title,
-      content:post.content
+      content:post.content,
+      published:post.published,
+      likes:post.likes
     }))
     return res.json(posts)
   }catch(err){

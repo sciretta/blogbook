@@ -1,7 +1,8 @@
 import { 
   postNew,
   postLoad,
-  postGroup
+  postGroup,
+  postLike
 } from '../../../server/controllers/Posts'
 
 import dbConnect from '../../../server/db.connect'
@@ -30,6 +31,12 @@ export default async (req, res) => {
       else
         res.status(400).json({success:false})
       break
+    // case 'like':
+    //   if(method==='POST')
+    //     return postLike(body,res)
+    //   else
+    //     res.status(400).json({success:false})
+    //   break
     // case 'all':
     //   if(method==='POST')
     //     return userRegister(body,res)

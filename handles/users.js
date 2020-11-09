@@ -110,3 +110,25 @@ export const handleCheckLoggedIn = async (dispatch) => {
 //     .then(res=>console.log(res))
 //   }
 // }
+
+
+
+//liking a post
+export const handleLike = (userId,postId) => {
+  const token = localStorage.getItem("auth-token")
+
+  if (token === null) {
+    console.log('No user inicializado')
+  }else{
+     fetch(`http://localhost:3000/api/user/like`, {
+      method: 'POST',
+      body:JSON.stringify({userId,postId}),
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token':token
+      }
+    })
+    .then(res => res.json())
+    .then(res=>console.log(res))//eliminar
+  }
+}
