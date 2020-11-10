@@ -94,6 +94,30 @@ export const handleCheckLoggedIn = async (dispatch) => {
   }
 }
 
+export const handleData = async (username,dispatch) => {
+  const userRes = await fetch(`http://localhost:3000/api/user/data`, {
+    method: 'POST',
+    body:JSON.stringify({type:'visitor',username}),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res =>res.json())
+  .then(res =>{
+    if(!res.error){
+      dispatch({
+        type:'TEMPORAL_USER',
+        tempUser:res.user
+      })
+    }else{
+      dispatch({
+        type:'TEMPORAL_USER',
+        tempUser:{}
+      })
+    }
+  })
+}
+
 // //delete
 // const borrar = (event) => {
 //   event.preventDefault()

@@ -122,24 +122,42 @@ export const userValidToken = async (req, res) => {
 //get user data
 export const userData = async (req,res) => {//modificar este endpoint
   try{
-    await auth(req,res)
-      .then(async () => {
-        const user = await User.findById(req.user)
-        
-        if(!user)
-          return res.json({error:'User not found.'})
+    if(req.body.type==='visitor'){
+      const {body:{username}} = req
+      const user = await User.findOne({username})
+          
+      if(!user)
+        return res.json({error:'User not found.'})
 
-        return res.json({
-          user: {
-            id: user._id,
-            username: user.username,
-            name: user.name,
-            country: user.country,
-            likes:user.likes,
-            
-          }
-        })
+      return res.json({
+        user: {
+          id: user._id,
+          username: user.username,
+          name: user.name,
+          country: user.country,
+          
+        }
       })
+    }else{
+      await auth(req,res)
+        .then(async () => {
+          const user = await User.findById(req.user)
+          
+          if(!user)
+            return res.json({error:'User not found.'})
+
+          return res.json({
+            user: {
+              id: user._id,
+              username: user.username,
+              name: user.name,
+              country: user.country,
+              likes:user.likes,
+              
+            }
+          })
+        })
+    }
   }catch (err) {
     res.status(500).json({ error: err.message })
   }

@@ -6,12 +6,12 @@ import Container from '@material-ui/core/Container'
 
 import Header from '../../components/Header'
 
-const useStyles = makeStyles((theme) =>({
+const useStyles = makeStyles(({palette:{background}}) =>({
   toolbar:{
     marginBottom:5
   },
   container:{
-    background:theme.palette.background.body
+    background:background.body
   }
 }))
 

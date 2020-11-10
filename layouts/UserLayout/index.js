@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { useState,useEffect } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -10,7 +11,9 @@ import Drawer from '@material-ui/core/Drawer'
 
 import Header from '../../components/Header'
 import Cover from '../../components/Cover'
-import { useStore } from '../../Store'
+import { useStore,useDispatch } from '../../Store'
+
+import { handleData } from '../../handles/users'
 
 const useStyles = makeStyles((theme) =>({
   toolbar:{
@@ -21,20 +24,27 @@ const useStyles = makeStyles((theme) =>({
   }
 }))
 
-export default function UserLayout(props) {
+export default function UserLayout({children,username}) {
   const classes = useStyles()
-  const {user} = useStore()
+  const {connected} = useStore()
+  const dispatch = useDispatch()
+  const {tempUser} = useStore()
+
+  useEffect(()=>{
+    handleData(username,dispatch)
+  },[])
+
   return (
     <>
       <Head>
-        <title>{user?user.name:'Loading...'}</title>
+        <title>{username}</title>
       </Head>
       <Header/> 
       <CssBaseline/> 
       <Toolbar className={classes.toolbar}/>
       <Container maxWidth="xl" className={classes.container}>
-        <Cover/>
-        {props.children}
+        <Cover connected={connected} user={tempUser}/>
+        {children}
       </Container>
       <Toolbar className={classes.toolbar}/>
     </>

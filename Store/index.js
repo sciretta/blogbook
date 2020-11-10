@@ -4,6 +4,7 @@ const dispatchContext = createContext()
 
 const initialState = {
   user: {},
+  tempUser: {},
   connected:false
 }
 
@@ -16,6 +17,14 @@ const reducer = (state, action) => {
           ...action.user
         },
         connected:true
+      }
+      break
+    case 'TEMPORAL_USER':
+      return {
+        ...state,
+        tempUser:{
+          ...action.tempUser
+        }
       }
       break
     default:

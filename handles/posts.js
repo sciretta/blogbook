@@ -1,6 +1,6 @@
 
 //creating new post
-export const handleCreatePost = (replace,userId) => {
+export const handleCreatePost = (replace,userId) => {//cualquiera puede crear un post, middleware auth
 	const title = document.getElementById("new-post-title").value
   const content = document.getElementById("new-post-content").value
   //const tags = document.getElementsByClassName("new-post-tags").map(tag=>tag.value)

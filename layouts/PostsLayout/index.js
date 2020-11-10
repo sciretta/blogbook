@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
 import Hidden from '@material-ui/core/Hidden'
 import Drawer from '@material-ui/core/Drawer'
 
@@ -45,7 +44,7 @@ const useStyles = makeStyles((theme) =>({
   }
 }))
 
-export default function PostsLayout(props) {
+export default function PostsLayout({children}) {
   const classes = useStyles()
   return (
     <>
@@ -69,7 +68,7 @@ export default function PostsLayout(props) {
         </Drawer>
       </Hidden>
       <Container maxWidth="xl" className={classes.container}>
-        {props.children}
+        {children}
       </Container>
       <Hidden smDown>
         <Drawer

@@ -27,14 +27,26 @@ const ReceptionAlert = successMessage => Component => () =>{
   }
   return ( 
     <>
-      <Component setError={setError} setSuccessAction={setSuccessAction} replace={replace}/>
+      <Component 
+        setError={setError} 
+        setSuccessAction={setSuccessAction} 
+        replace={replace}
+      />
 
-      <Snackbar open={error.open} autoHideDuration={5000} onClose={handleClose}>
+      <Snackbar 
+        open={error.open} 
+        autoHideDuration={5000} 
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity="error">
           {error.message}
         </Alert>
       </Snackbar>
-      <Snackbar open={successAction} autoHideDuration={5000} onClose={handleClose}>
+      <Snackbar 
+        open={successAction} 
+        autoHideDuration={5000} 
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity="success">
           {successMessage}
         </Alert>

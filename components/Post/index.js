@@ -6,6 +6,8 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Divider from '@material-ui/core/Divider'
 import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import ThumbUpIcon from '@material-ui/icons/ThumbUp'
 
 import { handleLoadPost } from '../../handles/posts'
 import { handleLike } from '../../handles/users'
@@ -18,9 +20,9 @@ const useStyles = makeStyles((theme) =>({
     marginTop:20,
     marginBottom:60
   },
-  button:theme.button,
-  paper:{
-    minHeight:'80vh'
+  content:{
+    padding:30,
+    minHeight:'60vh'
   }
 }))
 
@@ -29,6 +31,7 @@ export default function Post({card,setLayoutTitle,postId}) {
   const {user} = useStore()
   const [title,setTitle] = useState('Loading...')
   const [content,setContent] = useState('Content')
+  const [likeDisabled,setLikeDisabled] = useState(false)//necesito agregar el postid al store
 
   useLogIn()
 
@@ -37,7 +40,15 @@ export default function Post({card,setLayoutTitle,postId}) {
     if(title==='Loading...'){
       handleLoadPost(postId,setTitle,setContent)
     }
-  },[title])
+
+    const {likes} = user
+    if(likes){
+      const hasLiked = likes.some((likes)=>likes===postId)
+      if(hasLiked){
+        setLikeDisabled(true)
+      }
+    }
+  },[title,user])
 
   return (
     <Grid 
@@ -53,28 +64,32 @@ export default function Post({card,setLayoutTitle,postId}) {
         direction="column"
         xs={12} sm={12} md={7} lg={8}
       >
-        <Paper className={classes.paper}>
+        <Paper>
           <Grid item>
             <Typography className={classes.title} variant="h2">
               {title}
             </Typography>
             <Divider/>
           </Grid>
-          <Grid item>
+          <Grid item className={classes.content}>
             <Typography variant="h3">
               {content}
             </Typography>
           </Grid>
-          <Grid item>
-            <Button 
+          <Grid 
+            item
+            container
+            justify="center"
+          >
+            <IconButton
               onClick={()=>handleLike(user.id,postId)}
-              variant="contained" 
-              color="primary"
-              disableElevation
-              className={classes.button}
+              color="inherit"
+              aria-label="like"
+              edge="start"
+              disabled={likeDisabled}
             >
-              Like
-            </Button>
+              <ThumbUpIcon />
+            </IconButton>
           </Grid>
         </Paper>
       </Grid>

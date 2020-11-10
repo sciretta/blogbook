@@ -59,7 +59,7 @@ function PostCard({path,title,author,likes}) {
   const classes = useStyles()
   const {replace} = useRouter()
 
-  const handleRedirect = path =>{
+  const redirect = path =>{
     replace(path)
   }
 
@@ -67,7 +67,7 @@ function PostCard({path,title,author,likes}) {
     <Card className={classes.card}>
       <CardActionArea 
         className={classes.actionArea}
-        onClick={()=>handleRedirect(path)}
+        onClick={()=>redirect(path)}
       >
         <CardContent>
           <Typography gutterBottom variant="h2" component="h2">

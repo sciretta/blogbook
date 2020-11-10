@@ -1,4 +1,4 @@
-import React from 'react'
+import {useState,useEffect} from 'react'
 
 import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
@@ -9,8 +9,7 @@ import Grid from '@material-ui/core/Grid'
 import Avatar from '@material-ui/core/Avatar'
 import Paper from '@material-ui/core/Paper'
 
-import { useStore } from '../../Store'
-
+import {useStore} from '../../Store'
 
 const useStyles = makeStyles((theme) =>({
   container:{
@@ -38,10 +37,16 @@ const useStyles = makeStyles((theme) =>({
 }))
 
 
-export default function Cover(props) {
-  const {user} = useStore()
+export default function Cover({user}) {
   const classes = useStyles()
-  const {replace} = useRouter()
+  const [edit,setEdit] = useState(true)
+  const {user:{username}} = useStore()
+  
+  useEffect(()=>{
+    if(username && username===user.username){
+      setEdit(false)
+    }
+  },[username])
 
   return (
     <>
@@ -79,6 +84,7 @@ export default function Cover(props) {
                 variant="contained"
                 disableElevation
                 className={classes.button}
+                disabled={edit}
               >
                 Edit profile
               </Button>
