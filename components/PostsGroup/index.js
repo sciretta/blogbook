@@ -47,7 +47,6 @@ export default function PostsGroup({search}) {
           path={`${post.author}/${post.id}`}
           author={post.author}
           title={post.title}
-          likes={post.likes}
         />
       )):null}
     </Grid>
@@ -55,7 +54,7 @@ export default function PostsGroup({search}) {
 }
 
 
-function PostCard({path,title,author,likes}) {
+function PostCard({path,title,author}) {
   const classes = useStyles()
   const {replace} = useRouter()
 
@@ -82,7 +81,7 @@ function PostCard({path,title,author,likes}) {
           alignItems="center"
         >
           <Typography variant="h3">
-            author:{author}, likes:{likes}
+            author:{author}
           </Typography>
           <Button>
             <Typography variant="h3">

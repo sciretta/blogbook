@@ -38,10 +38,6 @@ const UserSchema = new Schema({
 	postsId:[{
 		type:String,
 		trim:true
-	}],
-	likes:[{
-		type:String,
-		unique:true
 	}]
 })
 

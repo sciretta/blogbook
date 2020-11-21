@@ -47,7 +47,7 @@ const useStyles = makeStyles(({palette:{background,textColor},zIndex,button}) =>
 
 
 export default function Header(props) {
-  const { connected } = useStore()
+  const { user } = useStore()
   const classes = useStyles()
   const {replace} = useRouter()
 
@@ -82,7 +82,7 @@ export default function Header(props) {
               onKeyPress={handleSearch}
             />
           </div>
-          {connected?
+          {user.username?
             <Button 
               onClick={()=>handleRedirect("/new")}
               variant="contained" 

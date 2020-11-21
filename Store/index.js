@@ -4,8 +4,7 @@ const dispatchContext = createContext()
 
 const initialState = {
   user: {},
-  tempUser: {},
-  connected:false
+  tempUser: {}
 }
 
 const reducer = (state, action) => {
@@ -13,18 +12,13 @@ const reducer = (state, action) => {
     case 'LOGIN_USER':
       return {
         ...state,
-        user:{
-          ...action.user
-        },
-        connected:true
+        user:action.user
       }
       break
     case 'TEMPORAL_USER':
       return {
         ...state,
-        tempUser:{
-          ...action.tempUser
-        }
+        tempUser:action.tempUser
       }
       break
     default:

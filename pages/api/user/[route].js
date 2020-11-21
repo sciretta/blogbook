@@ -1,10 +1,8 @@
 import { 
 	userRegister,
   userLogin,
-  //userDelete,
   userValidToken,
-  userData,
-  userLike
+  userData
 } from '../../../server/controllers/Users'
 
 import dbConnect from '../../../server/db.connect'
@@ -27,27 +25,15 @@ export default async (req, res) => {
   	  else
   	  	res.status(400).json({success:false})
   	  break
-  	// case 'delete':
-  	//   if(method==='DELETE')
-  	//   	return userDelete(req,res)
-  	//   else
-  	//   	res.status(400).json({success:false})
-  	//   break
     case 'tokenIsValid':
-      if(method==='POST')
+      if(method==='GET')
         return userValidToken(req,res)
       else
         res.status(400).json({success:false})
       break
     case 'data':
-      if(method==='POST')//puede ser cambiado a GET
-        return userData(req,res)
-      else
-        res.status(400).json({success:false})
-      break
-    case 'like':
       if(method==='POST')
-        return userLike(req,res)
+        return userData(req,res)
       else
         res.status(400).json({success:false})
       break

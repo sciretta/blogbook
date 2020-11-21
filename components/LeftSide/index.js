@@ -28,12 +28,12 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function LeftSide() {
-  const {user,connected} = useStore()
+  const {user} = useStore()
 	const classes = useStyles()
   
   return (
     <>
-      {connected?
+      {user.username?
         <UserList username={user.username}/>:
         <Tags tags={popularTags}/>
       }

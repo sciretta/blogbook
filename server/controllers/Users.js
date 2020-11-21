@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs'
+ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import User from '../models/User'
 import Post from '../models/Post'
@@ -42,7 +42,7 @@ export const userRegister = async (body,res) => {
       password: passwordHash
     })
     const savedUser = await newUser.save()
-    return res.json(savedUser)//se envia la password
+    return res.status(200).json(true)
   }catch(err){
   	return res.status(500).json({error:err.message})
   }
@@ -62,7 +62,7 @@ export const userLogin = async (body,res) => {
     if (!user)
       return res
         .status(400)
-        .json({ error: "No account with this username has been registered." })
+        .json({ error: "Invalid credentials." })
     
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) return res.status(400).json({ error: "Invalid credentials." })
@@ -76,27 +76,12 @@ export const userLogin = async (body,res) => {
         name: user.name,
         country: user.country,
         
-      },
+      }
     })
   }catch(err){
     return res.status(500).json({error:err.message})
   }
 }
-
-// //delete user
-// export const userDelete = async (req,res) => {//modificar este endpoint
-//   try {
-//     await auth(req,res)
-//       .then(async () => {
-//         const deletedUser = await User.findByIdAndDelete(req.user)
-//         if(!deletedUser)
-//           return res.status(400).json({error:'User not found.'})
-//         return res.json(deletedUser)
-//       })
-//   }catch(err){
-//     return res.status(500).json({error:err.message})
-//   }
-// }
 
 //check token
 export const userValidToken = async (req, res) => {
@@ -113,9 +98,9 @@ export const userValidToken = async (req, res) => {
     if (!user) 
       return res.json({error:'User not found.'})
 
-    return res.json(true)
+    return res.status(200).json(true)
   } catch (err) {
-    res.status(500).json({ error: err.message })
+    return res.status(500).json({ error: err.message })
   }
 }
 
@@ -135,7 +120,8 @@ export const userData = async (req,res) => {//modificar este endpoint
           username: user.username,
           name: user.name,
           country: user.country,
-          
+          likes: user.likes,
+
         }
       })
     }else{
@@ -159,48 +145,6 @@ export const userData = async (req,res) => {//modificar este endpoint
         })
     }
   }catch (err) {
-    res.status(500).json({ error: err.message })
-  }
-}
-
-//liking a post
-export const userLike = async (req,res) => {
-  try{
-    await auth(req,res)
-      .then(async () => {
-        const { postId,userId } = req.body
-        if(!userId)
-          return res
-            .status(400)
-            .json({ error: "Only users can like posts." })
-        
-        const user = await User.findById(userId)
-        if(!user)
-          return res
-            .status(400)
-            .json({ error: "This user is invalid and can't like the post." })
-
-        const { likes } = user
-
-        const hasLiked = await likes.some((likes)=>likes===postId)
-        if(hasLiked)
-          return res
-            .status(400)
-            .json({ error: "This user have liked this post." })
-
-        const userUpdated = await User
-          .findOneAndUpdate({_id:userId},{
-            likes:[...likes,postId]
-          })  
-
-        const postUpdated = await Post
-          .findOneAndUpdate({_id:postId},{
-            likes:likes.length+1
-          })
-        
-        return res.json(postUpdated)
-      })
-  }catch(err){
-    return res.status(500).json({error:err.message})
+    return res.status(500).json({ error: err.message })
   }
 }

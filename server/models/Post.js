@@ -22,11 +22,7 @@ const PostSchema = new Schema({
 	tags:[{//debe de ser requerido al menos una
 		type:String,
 		trim:true
-	}],
-	likes:{
-		type:Number,
-		default:0
-	},
+	}]
 	userId:{
 		type:String,
 		trim:true

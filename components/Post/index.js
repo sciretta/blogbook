@@ -11,7 +11,7 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp'
 
 import { handleLoadPost } from '../../handles/posts'
 import { handleLike } from '../../handles/users'
-import { useStore } from '../../Store'
+import { useStore,useDispatch } from '../../Store'
 import { useLogIn } from '../../hooks'
 
 const useStyles = makeStyles((theme) =>({
@@ -29,9 +29,9 @@ const useStyles = makeStyles((theme) =>({
 export default function Post({card,setLayoutTitle,postId}) {
 	const classes = useStyles()
   const {user} = useStore()
+  const dispatch = useDispatch()
   const [title,setTitle] = useState('Loading...')
   const [content,setContent] = useState('Content')
-  const [likeDisabled,setLikeDisabled] = useState(false)//necesito agregar el postid al store
 
   useLogIn()
 
@@ -39,14 +39,6 @@ export default function Post({card,setLayoutTitle,postId}) {
     setLayoutTitle(title)
     if(title==='Loading...'){
       handleLoadPost(postId,setTitle,setContent)
-    }
-
-    const {likes} = user
-    if(likes){
-      const hasLiked = likes.some((likes)=>likes===postId)
-      if(hasLiked){
-        setLikeDisabled(true)
-      }
     }
   },[title,user])
 
@@ -75,21 +67,6 @@ export default function Post({card,setLayoutTitle,postId}) {
             <Typography variant="h3">
               {content}
             </Typography>
-          </Grid>
-          <Grid 
-            item
-            container
-            justify="center"
-          >
-            <IconButton
-              onClick={()=>handleLike(user.id,postId)}
-              color="inherit"
-              aria-label="like"
-              edge="start"
-              disabled={likeDisabled}
-            >
-              <ThumbUpIcon />
-            </IconButton>
           </Grid>
         </Paper>
       </Grid>
