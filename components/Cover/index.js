@@ -37,16 +37,16 @@ const useStyles = makeStyles((theme) =>({
 }))
 
 
-export default function Cover({user}) {
+export default function Cover({coverUser}) {
   const classes = useStyles()
-  const [edit,setEdit] = useState(true)
-  const {user:{username}} = useStore()
+  const [edit,setEdit] = useState(false)
+  const {user} = useStore()
   
   useEffect(()=>{
-    if(username && username===user.username){
-      setEdit(false)
+    if(user.username && user.username===coverUser.username){
+      setEdit(true)
     }
-  },[username])
+  },[coverUser,user])
 
   return (
     <>
@@ -75,7 +75,7 @@ export default function Cover({user}) {
               xs={12} sm={5} md={7} lg={8} 
             >
               <Avatar className={classes.avatar}>
-                {user.name?user.name[0]:'Blogbook'}
+                {coverUser.name?coverUser.name[0]:'Blogbook'}
               </Avatar>
             </Grid>
             <Grid item>
@@ -84,7 +84,7 @@ export default function Cover({user}) {
                 variant="contained"
                 disableElevation
                 className={classes.button}
-                disabled={edit}
+                disabled={!edit}
               >
                 Edit profile
               </Button>
@@ -101,18 +101,18 @@ export default function Cover({user}) {
           >
             <Grid item>
               <Typography variant="h2">
-                {user.username||'Username'}
+                {coverUser.username||'Username'}
               </Typography>
             </Grid>
             <Grid item>
               <Typography variant="h3">
-                from {user.country || 'No country.'},
+                from {coverUser.country || 'No country.'},
               </Typography>
               <Typography variant="h3">
-                joined {user.joined || 'No date.'}
+                joined {coverUser.joined || 'No date.'},
               </Typography>
               <Typography variant="h4">
-                {user.description || 'No description.'}
+                {coverUser.description || 'No description.'}
               </Typography>
             </Grid>
           </Grid>

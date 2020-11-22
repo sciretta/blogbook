@@ -1,4 +1,5 @@
 import { Schema,model,models } from 'mongoose'
+import moment from 'moment'
 
 delete models['User']
 
@@ -21,8 +22,9 @@ const UserSchema = new Schema({
 		trim:true
 	},
 	joined:{
-		type:Date,
-		value:new Date()//NO FUNCIONA LA FECHA
+		type:String,
+		default:moment().format('DD/MM/YY'),
+		required:true
 	},
 	country:{
 		type:String
@@ -31,10 +33,6 @@ const UserSchema = new Schema({
 		type:String,
 		maxlength:[100,'Description must be less than 100 characters.']
 	},
-	tags:[{
-		type:String,
-		trim:true
-	}],
 	postsId:[{
 		type:String,
 		trim:true

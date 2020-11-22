@@ -18,20 +18,26 @@ const useStyles = makeStyles((theme) =>({
     marginTop:20
   },
   card:{
-    margin:'0px 10px 10px 10px'
+    margin:'0px 10px 10px 10px',
+    width:'95%'
+  },
+  cardTitle:{
+    textAlign:'center'
   },
   actionArea:{
     padding:'20px 10px'
   }
 }))
 
-export default function PostsGroup({search}) {
+export default function PostsGroup({author}) {
 	const classes = useStyles()
   
   const [posts,setPosts] = useState([])
   useEffect(()=>{
-    handleGroupPosts(search,setPosts)
-  },[search])
+    if(author){
+      handleGroupPosts(author,setPosts)
+    }
+  },[author])
   
   return (
     <Grid 
@@ -44,7 +50,7 @@ export default function PostsGroup({search}) {
       {posts?posts.map(post=>(
         <PostCard 
           key={post.title} 
-          path={`${post.author}/${post.id}`}
+          path={`${post.author}/${post._id}`}
           author={post.author}
           title={post.title}
         />
@@ -69,7 +75,12 @@ function PostCard({path,title,author}) {
         onClick={()=>redirect(path)}
       >
         <CardContent>
-          <Typography gutterBottom variant="h2" component="h2">
+          <Typography 
+            gutterBottom 
+            variant="h2" 
+            component="h2"
+            className={classes.cardTitle}
+          >
             {title}
           </Typography>
         </CardContent>

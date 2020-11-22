@@ -3,8 +3,7 @@ const storeContext = createContext()
 const dispatchContext = createContext()
 
 const initialState = {
-  user: {},
-  tempUser: {}
+  user: {}
 }
 
 const reducer = (state, action) => {
@@ -13,12 +12,6 @@ const reducer = (state, action) => {
       return {
         ...state,
         user:action.user
-      }
-      break
-    case 'TEMPORAL_USER':
-      return {
-        ...state,
-        tempUser:action.tempUser
       }
       break
     default:

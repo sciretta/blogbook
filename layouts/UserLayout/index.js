@@ -13,7 +13,6 @@ import Header from '../../components/Header'
 import Cover from '../../components/Cover'
 import { useStore,useDispatch } from '../../Store'
 
-import { handleData } from '../../handles/users'
 
 const useStyles = makeStyles((theme) =>({
   toolbar:{
@@ -24,26 +23,19 @@ const useStyles = makeStyles((theme) =>({
   }
 }))
 
-export default function UserLayout({children,username}) {
+export default function UserLayout({children,user}) {
   const classes = useStyles()
-  const {connected} = useStore()
-  const dispatch = useDispatch()
-  const {tempUser} = useStore()
-
-  useEffect(()=>{
-    handleData(username,dispatch)
-  },[])
 
   return (
     <>
       <Head>
-        <title>{username}</title>
+        <title>{user.username}</title>
       </Head>
       <Header/> 
       <CssBaseline/> 
       <Toolbar className={classes.toolbar}/>
       <Container maxWidth="xl" className={classes.container}>
-        <Cover connected={connected} user={tempUser}/>
+        <Cover coverUser={user}/>
         {children}
       </Container>
       <Toolbar className={classes.toolbar}/>

@@ -1,4 +1,5 @@
 import { Schema,model,models } from 'mongoose'
+import moment from 'moment'
 
 delete models['Post']
 
@@ -15,15 +16,11 @@ const PostSchema = new Schema({
 		maxlength:[7000,'Content must be less than 7000 characters.']
 	},
 	published:{
-		type:Date,
-		default:new Date(),//NO FUNCIONA LA FECHA
+		type:String,
+		default:moment().format('DD/MM/YY'),
 		required:true
 	},
-	tags:[{//debe de ser requerido al menos una
-		type:String,
-		trim:true
-	}]
-	userId:{
+	author:{
 		type:String,
 		trim:true
 	}

@@ -98,7 +98,7 @@ export const handleCheckLoggedIn = async (dispatch) => {
   }
 }
 
-export const handleData = async (username,dispatch) => {
+export const handleData = async (username,setUser) => {
   const userRes = await fetch(`http://localhost:3000/api/user/data`, {
     method: 'POST',
     body:JSON.stringify({type:'visitor',username}),
@@ -109,15 +109,9 @@ export const handleData = async (username,dispatch) => {
   .then(res =>res.json())
   .then(res =>{
     if(!res.error){
-      dispatch({
-        type:'TEMPORAL_USER',
-        tempUser:res.user
-      })
+      setUser(res.user)
     }else{
-      dispatch({
-        type:'TEMPORAL_USER',
-        tempUser:{}
-      })
+      console.log(res)
     }
   })
 }

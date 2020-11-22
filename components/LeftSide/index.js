@@ -18,7 +18,7 @@ import WebIcon from "@material-ui/icons/Web"
 
 import { useStore } from '../../Store'
 
-const userTags = ['javascript','maths','react','python','javascript','maths','react','python','javascript','maths','react','python']
+const userTags = ['javascript','maths','react','python','physics','algebra','angular','c#']
 const popularTags = ['art','music','maths','react','physics']
 
 const useStyles = makeStyles((theme) => ({
@@ -103,7 +103,7 @@ function Tags({tags}) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List disablePadding>
           {tags.map(tag=>
-			    	<ListItem button className={classes.item}>
+			    	<ListItem button className={classes.item} key={tag}>
 			        <ListItemText primary={`#${tag}`}/>
 			      </ListItem>
 			    )}

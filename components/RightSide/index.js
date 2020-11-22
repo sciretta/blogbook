@@ -15,9 +15,9 @@ import PersonIcon from '@material-ui/icons/Person'
 import LabelIcon from '@material-ui/icons/Label'
 
 const topPosts = [
-{title:'How to start a js project?',likes:3},{title:'How to start a js project?',likes:3},
-{title:'How to start a js project?',likes:3},{title:'How to start a js project?',likes:3},
-{title:'How to start a js project?',likes:3},{title:'How to start a js project?',likes:3}
+  {title:'How to start a js project?',likes:3},
+  {title:'New way to do something?',likes:3},
+  {title:'WTH IS GOING ON??',likes:3}
 ]
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +45,7 @@ export default function RightSide(props) {
             />
           </ListItem>
           {topPosts.map((post,index)=>
-            <ListItem button className={classes.item}>
+            <ListItem button className={classes.item} key={index}>
               <ListItemText 
                 primary={`${index+1}-${post.title}`} 
                 secondary={`${post.likes} likes`}

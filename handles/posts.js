@@ -46,11 +46,11 @@ export const handleLoadPost = (postId,setTitle,setContent) => {
 }
 
 //loading group of posts
-export const handleGroupPosts = (search,setPosts) => {
+export const handleGroupPosts = (author,setPosts) => {
 
   fetch(`http://localhost:3000/api/post/group`, {
     method: 'POST',
-    body:JSON.stringify(search),
+    body:JSON.stringify(author),
     headers: {
       'Content-Type': 'application/json'
     }
@@ -60,7 +60,7 @@ export const handleGroupPosts = (search,setPosts) => {
     if(!res.error){
       setPosts(res)
     }else{
-      console.log({error:res.error})//eliminar
+      console.log(res)//eliminar
     }
   })
 }

@@ -7,7 +7,7 @@ export default function Home() {
   useLogIn()
   return (
     <PostsLayout >
-      <PostsGroup search={'ALL'}/>
+      <PostsGroup author={'ALL'}/>
     </PostsLayout>
   )
 }

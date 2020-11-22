@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 import User from '../models/User'
 import Post from '../models/Post'
 import auth from '../middlewares/auth'
+import moment from 'moment'
 
 //create a new post
 export const postNew = async (body,res) => {//falta agregar post id al autor
@@ -24,13 +25,12 @@ export const postNew = async (body,res) => {//falta agregar post id al autor
     const author = await User.findById(userId)
     if (!author) 
       return res.json({error:'User not found.'})
-
     //saving post
     const newPost = new Post({
       title,
       content,
       tags,
-      userId
+      author:author.username
     })
 
     const savedPost = await newPost.save()
@@ -59,37 +59,36 @@ export const postLoad = async (body,res) => {
 }
 
 //load a group of posts
-export const postGroup = async (body,res) => {//falta buscar los tags del usuario y hacer un algoritmo de busqueda
+export const postGroup = async (body,res) => {
   try{
-    const search = body
+    const author = body
     
-    if(search==='ALL')
-      return res
-        .status(400)
-        .json({ error: "Not available yet." })
-    //finding post
-    let posts = await Post.find({userId:search})//ERROR
-    if (!posts)
-      return res
-        .status(400)
-        .json({ error: "This user doesn't have posts yet." })
+    if(author==='ALL'){
+      const posts = await Post.find()
 
-    const author = await User.findById(search)
-    if(!author)
-      return res
-        .status(400)
-        .json({ error: "This user doesn't exist." })
+      // var arr = [ 40, 1, 5, 200 ];
+      // function comparar ( a, b ){ return a - b; }
+      // arr.sort( comparar )
+      function comparar ( a, b ){ 
+        if (moment(b).isAfter(a)) {
+          return -1;
+        }
+      }
+      const arr1 = [...posts.map(post=>post.published),'23/11/20','24/11/20']
+      const arr2 = ['23-11-20','24-11-20','27-11-20','25-11-20']
+      console.log(arr2.sort(comparar))
 
-    posts = posts.map(post=>({
-      author:author.username,
-      id:post._id,
-      tags:post.tags,
-      title:post.title,
-      content:post.content,
-      published:post.published,
-      likes:post.likes
-    }))
-    return res.json(posts)
+      return res.json(posts)
+    }else{
+      //finding post
+      const posts = await Post.find({author})
+      if (!posts)
+        return res
+          .status(400)
+          .json({ error: "This user doesn't have posts yet." })
+
+      return res.json(posts)
+    }
   }catch(err){
     return res.status(500).json({error:err.message})
   }
