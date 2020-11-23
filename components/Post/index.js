@@ -32,9 +32,10 @@ export default function Post({card,setLayoutTitle,postId}) {
   const [content,setContent] = useState('Loading content...')
 
   useLogIn()
+  
+  setLayoutTitle(title)
 
   useEffect(()=>{
-    setLayoutTitle(title)
     if(title==='Loading title...'){
       handleLoadPost(postId,setTitle,setContent)
     }

@@ -66,7 +66,7 @@ export default function Cover({coverUser}) {
             alignContent="center"
           >
             <Grid item>
-              <div className={classes.button}></div>
+              <div className={classes.button}>{/*boton extra, lado izquierdo*/}</div>
             </Grid>
             <Grid 
               item 
