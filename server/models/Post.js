@@ -17,7 +17,7 @@ const PostSchema = new Schema({
 	},
 	published:{
 		type:String,
-		default:moment().format('DD/MM/YY'),
+		default:moment().format('YYYY-MM-DD'),
 		required:true
 	},
 	author:{

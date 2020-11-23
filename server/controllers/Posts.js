@@ -5,7 +5,7 @@ import auth from '../middlewares/auth'
 import moment from 'moment'
 
 //create a new post
-export const postNew = async (body,res) => {//falta agregar post id al autor
+export const postNew = async (body,res) => {
   try{
     const { title, content, userId, tags } = body
 
@@ -62,23 +62,26 @@ export const postLoad = async (body,res) => {
 export const postGroup = async (body,res) => {
   try{
     const author = body
+    //sort all posts by date
+    const organizador = posts =>{
+      function comparar ( a, b ){ 
+        if (moment(a.published).isAfter(b.published, 'day')) {
+          return -1
+        }
+        if (moment(b.published).isAfter(a.published, 'day')) {
+          return 1
+        }
+        return 0
+      }
+      return posts.sort(comparar)
+    }
     
     if(author==='ALL'){
       const posts = await Post.find()
 
-      // var arr = [ 40, 1, 5, 200 ];
-      // function comparar ( a, b ){ return a - b; }
-      // arr.sort( comparar )
-      function comparar ( a, b ){ 
-        if (moment(b).isAfter(a)) {
-          return -1;
-        }
-      }
-      const arr1 = [...posts.map(post=>post.published),'23/11/20','24/11/20']
-      const arr2 = ['23-11-20','24-11-20','27-11-20','25-11-20']
-      console.log(arr2.sort(comparar))
+      const postsOrganizados = organizador(posts)
 
-      return res.json(posts)
+      return res.json(postsOrganizados)
     }else{
       //finding post
       const posts = await Post.find({author})
@@ -87,7 +90,9 @@ export const postGroup = async (body,res) => {
           .status(400)
           .json({ error: "This user doesn't have posts yet." })
 
-      return res.json(posts)
+      const postsOrganizados = organizador(posts)
+
+      return res.json(postsOrganizados)
     }
   }catch(err){
     return res.status(500).json({error:err.message})

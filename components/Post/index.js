@@ -28,19 +28,17 @@ const useStyles = makeStyles((theme) =>({
 
 export default function Post({card,setLayoutTitle,postId}) {
 	const classes = useStyles()
-  const {user} = useStore()
-  const dispatch = useDispatch()
-  const [title,setTitle] = useState('Loading...')
-  const [content,setContent] = useState('Content')
+  const [title,setTitle] = useState('Loading title...')
+  const [content,setContent] = useState('Loading content...')
 
   useLogIn()
 
   useEffect(()=>{
     setLayoutTitle(title)
-    if(title==='Loading...'){
+    if(title==='Loading title...'){
       handleLoadPost(postId,setTitle,setContent)
     }
-  },[title,user])
+  },[postId])
 
   return (
     <Grid 

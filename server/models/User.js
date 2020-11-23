@@ -23,7 +23,7 @@ const UserSchema = new Schema({
 	},
 	joined:{
 		type:String,
-		default:moment().format('DD/MM/YY'),
+		default:moment().format('YYYY-MM-DD'),
 		required:true
 	},
 	country:{
