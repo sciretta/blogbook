@@ -1,4 +1,4 @@
-
+ 
 //creating new post
 export const handleCreatePost = (replace,userId) => {//cualquiera puede crear un post, middleware auth
 	const title = document.getElementById("new-post-title").value
@@ -7,7 +7,7 @@ export const handleCreatePost = (replace,userId) => {//cualquiera puede crear un
   const tags = [{value:'javascript'},{value:'react'}].map(tag=>tag.value)
   const body = {title,content,tags,userId}
 
-  fetch(`http://localhost:3000/api/post/new`, {
+  fetch(`/api/post/new`, {
     method: 'POST',
     body:JSON.stringify(body),
     headers: {
@@ -27,7 +27,7 @@ export const handleCreatePost = (replace,userId) => {//cualquiera puede crear un
 //loading post
 export const handleLoadPost = (postId,setTitle,setContent) => {
 
-  fetch(`http://localhost:3000/api/post/load`, {
+  fetch(`/api/post/load`, {
     method: 'POST',
     body:JSON.stringify(postId),
     headers: {
@@ -48,7 +48,7 @@ export const handleLoadPost = (postId,setTitle,setContent) => {
 //loading group of posts
 export const handleGroupPosts = (author,setPosts) => {
 
-  fetch(`http://localhost:3000/api/post/group`, {
+  fetch(`/api/post/group`, {
     method: 'POST',
     body:JSON.stringify(author),
     headers: {

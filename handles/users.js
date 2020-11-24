@@ -34,7 +34,7 @@ export const handleLogin = (replace,setError,setSuccessAction,dispatch) => {
 
   const body = selector('login',['username','password'])
 
-  fetch(`http://localhost:3000/api/user/login`, {
+  fetch(`/api/user/login`, {
     method: 'POST',
     body:JSON.stringify(body),
     headers: {
@@ -69,7 +69,7 @@ export const handleCheckLoggedIn = async (dispatch) => {
     token = ""
   }else{
     try {
-      const tokenRes = await fetch(`http://localhost:3000/api/user/tokenIsValid`, {
+      const tokenRes = await fetch(`/api/user/tokenIsValid`, {
         method: 'GET',
         headers: {
           'x-auth-token':token
@@ -78,7 +78,7 @@ export const handleCheckLoggedIn = async (dispatch) => {
       .then(res =>res.json())
 
       if (!tokenRes.error) {
-        const userRes = await fetch(`http://localhost:3000/api/user/data`, {
+        const userRes = await fetch(`/api/user/data`, {
           method: 'POST',
           headers: {
             'x-auth-token':token
@@ -93,13 +93,13 @@ export const handleCheckLoggedIn = async (dispatch) => {
         })
       }
     } catch (err){
-      console.log(error.message)
+      console.log(err.message)
     }
   }
 }
 
 export const handleData = async (username,setUser) => {
-  const userRes = await fetch(`http://localhost:3000/api/user/data`, {
+  const userRes = await fetch(`/api/user/data`, {
     method: 'POST',
     body:JSON.stringify({type:'visitor',username}),
     headers: {
