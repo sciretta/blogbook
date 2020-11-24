@@ -8,7 +8,7 @@ const selector = (type,arr) => arr.reduce(((acc,id)=>({
 export const handleRegister = (replace,setError,setSuccessAction) => {
 	const body = selector('register',['username','name','country','password','passwordCheck'])
 
-  fetch(`http://localhost:3000/api/user/register`, {
+  fetch(`/api/user/register`, {
     method: 'POST',
     body:JSON.stringify(body),
     headers: {
